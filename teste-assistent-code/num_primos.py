@@ -1,20 +1,28 @@
-def eh_primo(n):
-    """Retorna True se n for primo, caso contrário False."""
-    if n <= 1:
+def eh_primo(numero: int) -> bool:
+    """Retorna True se o número informado for primo."""
+    if numero <= 1:
         return False
-    if n <= 3:
+    if numero <= 3:
         return True
-    if n % 2 == 0 or n % 3 == 0:
+    if numero % 2 == 0 or numero % 3 == 0:
         return False
-    i = 5
-    while i * i <= n:
-        if n % i == 0 or n % (i + 2) == 0:
-            return False
-        i += 6
-    return True
+    return not _tem_divisor_por_6k_mais_um(numero)
+
+
+def _tem_divisor_por_6k_mais_um(numero: int) -> bool:
+    """Verifica divisores usando a forma 6k ± 1 para números maiores que 3."""
+    divisor = 5
+    while divisor * divisor <= numero:
+        if numero % divisor == 0 or numero % (divisor + 2) == 0:
+            return True
+        divisor += 6
+    return False
+
+
+def main() -> None:
+    exemplo = 29
+    print(f"{exemplo} é primo? {eh_primo(exemplo)}")
 
 
 if __name__ == "__main__":
-    # Exemplo de uso
-    numero = 29
-    print(f"{numero} é primo? {eh_primo(numero)}")
+    main()
